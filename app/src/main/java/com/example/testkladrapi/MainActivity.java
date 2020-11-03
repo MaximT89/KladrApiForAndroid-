@@ -1,6 +1,8 @@
 package com.example.testkladrapi;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,11 +34,22 @@ public class MainActivity extends AppCompatActivity {
 
         EditText city = (EditText) findViewById(R.id.edit_text_city);
         TextView textCity = (TextView) findViewById(R.id.text_response);
-        Button btn = (Button) findViewById(R.id.btn_search_city);
 
-        btn.setOnClickListener(view -> {
+        city.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            Log.d("SIZE", "в EditText ввели: " + city.getText());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                resultText = new StringBuilder();
+
+                if(city.getText().length() == 0){
+                    resultText = new StringBuilder();
+                    textCity.setText(resultText.toString());
+                }
 
             NetworkService.getInstance()
                     .getJSONApi()
@@ -64,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
                                             sb2 = new StringBuilder();
 
                                             sb2.append(", ")
-                                                    .append(allPersonalData.getResult().get(i).getParents().get(j).getTypeShort())
+                                                    .append(allPersonalData.getResult().get(i).getParents().get(j).getName())
                                                     .append(" ")
-                                                    .append(allPersonalData.getResult().get(i).getParents().get(j).getName());
+                                                    .append(allPersonalData.getResult().get(i).getParents().get(j).getTypeShort());
 
                                             s = sb1.toString() + sb2.toString() + "\n";
 
@@ -89,6 +102,15 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call<Response> call, Throwable t) { }
                     });
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
+
+
+
     }
 }
