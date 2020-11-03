@@ -24,4 +24,9 @@ public class CityModel {
     public void setCityId(String cityId) {
         this.cityId = cityId;
     }
+
+    @Override
+    public String toString() {
+        return cityName;
+    }
 }

@@ -3,7 +3,12 @@ package com.example.testkladrapi;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +22,8 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+
+import static android.R.layout.simple_list_item_1;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,11 +43,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText city = (EditText) findViewById(R.id.edit_text_city);
+        EditText cityEdit = (EditText) findViewById(R.id.edit_text_city);
         TextView textCity = (TextView) findViewById(R.id.text_response);
         TextView textModels = (TextView) findViewById(R.id.text_models);
+        ListView listCities = (ListView) findViewById(R.id.list_cities);
 
-        city.addTextChangedListener(new TextWatcher() {
+
+
+        cityEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -49,22 +59,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+
+
                 resultText = new StringBuilder();
+                listCities.setVisibility(View.VISIBLE);
 
-                if(city.getText().length() == 0){
-                    resultText = new StringBuilder();
-                    textCity.setText(resultText.toString());
-                }
+                cityArr.clear();
+                listCities.setAdapter(null);
 
-                if(cityArr.size() != 0 || city.getText().length() == 0){
+                if(cityArr.size() != 0 || cityEdit.getText().length() == 0){
                     cityArr.clear();
                     resultText = new StringBuilder();
                     textModels.setText(resultText.toString());
+                    listCities.setVisibility(View.GONE);
                 }
 
             NetworkService.getInstance()
                     .getJSONApi()
-                    .listCities(String.valueOf(city.getText()), contentTypeCity, withParent, limit)
+                    .listCities(String.valueOf(cityEdit.getText()), contentTypeCity, withParent, limit)
                     .enqueue(new Callback<Response>() {
                         @Override
                         public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
@@ -119,6 +131,14 @@ public class MainActivity extends AppCompatActivity {
                                     textModels.setText(cityModelsSB);
                                     // <----------------------------------------------------->
 
+
+                                    // Для наполнения listView
+                                    // <----------------------------------------------------->
+                                    ListAdapter adapterCities = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, cityArr);
+                                    listCities.setAdapter(adapterCities);
+                                    // <----------------------------------------------------->
+
+
                                     textCity.setText(resultText.toString());
                                 }
                             } catch (Exception e) {
@@ -132,12 +152,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-
+            public void afterTextChanged(Editable sAfter) {
+                if(sAfter.toString().equals("г ") || sAfter.toString().equals("г.")
+                        || sAfter.toString().equals("д.") || sAfter.toString().equals("д ")
+                        || sAfter.toString().equals("пос ") || sAfter.toString().equals("пос.")
+                        || sAfter.toString().equals("с ") || sAfter.toString().equals("с.")
+                ){
+                    cityEdit.setText("");
+                }
             }
         });
-
-
-
     }
 }
