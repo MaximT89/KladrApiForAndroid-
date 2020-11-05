@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -16,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.testkladrapi.kladrAPI.Response;
 import com.example.testkladrapi.kladrAPI.models.CityModel;
 import com.example.testkladrapi.kladrAPI.network.NetworkService;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     String limit = "4";
     String withParent = "1";
     String contentTypeCity = "city";
+
+    public String cityId = "";
 
     StringBuilder resultText = new StringBuilder();
 
@@ -48,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         TextView textModels = (TextView) findViewById(R.id.text_models);
         ListView listCities = (ListView) findViewById(R.id.list_cities);
 
-
-
         cityEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -58,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
 
                 resultText = new StringBuilder();
                 listCities.setVisibility(View.VISIBLE);
@@ -131,11 +132,27 @@ public class MainActivity extends AppCompatActivity {
                                     textModels.setText(cityModelsSB);
                                     // <----------------------------------------------------->
 
-
                                     // Для наполнения listView
                                     // <----------------------------------------------------->
-                                    ListAdapter adapterCities = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, cityArr);
+                                    ListAdapter adapterCities = new ArrayAdapter<>(MainActivity.this,
+                                            android.R.layout.simple_list_item_1, cityArr);
+
                                     listCities.setAdapter(adapterCities);
+                                    // <----------------------------------------------------->
+
+
+                                    // Прослушиваение кликов в listView listCities
+                                    // <----------------------------------------------------->
+                                    listCities.setOnItemClickListener((adapterView, view, i3, l) -> {
+                                        cityId = cityArr.get(i3).getCityId();
+                                        Log.d("CITY_ID", cityId);
+
+                                        cityEdit.setText(cityArr.get(i3).getCityName());
+                                        cityArr.clear();
+                                        listCities.setAdapter(null);
+                                    });
+
+
                                     // <----------------------------------------------------->
 
 
