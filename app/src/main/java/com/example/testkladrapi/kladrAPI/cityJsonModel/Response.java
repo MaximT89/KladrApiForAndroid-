@@ -1,9 +1,14 @@
-package com.example.testkladrapi.kladrAPI;
+package com.example.testkladrapi.kladrAPI.cityJsonModel;
 
 import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class Response{
+
+	@SerializedName("result")
 	private List<ResultItem> result;
+
+	@SerializedName("searchContext")
 	private SearchContext searchContext;
 
 	public void setResult(List<ResultItem> result){
@@ -21,6 +26,4 @@ public class Response{
 	public SearchContext getSearchContext(){
 		return searchContext;
 	}
-
-
 }

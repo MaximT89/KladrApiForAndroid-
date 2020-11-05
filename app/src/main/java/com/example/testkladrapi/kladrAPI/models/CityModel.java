@@ -4,9 +4,11 @@ public class CityModel {
     String cityName;
     String cityId;
 
+
     public CityModel(String cityName, String cityId) {
         this.cityName = cityName;
         this.cityId = cityId;
+
     }
 
     public String getCityName() {
@@ -24,6 +26,7 @@ public class CityModel {
     public void setCityId(String cityId) {
         this.cityId = cityId;
     }
+
 
     @Override
     public String toString() {

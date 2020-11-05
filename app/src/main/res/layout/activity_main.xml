@@ -7,9 +7,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
+
     <EditText
         android:id="@+id/edit_text_city"
-        android:layout_margin="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="6dp"
+        android:hint="Город"
+        android:padding="10dp"
+        android:background="@drawable/border_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -20,28 +28,67 @@
         android:visibility="gone"
         />
 
-    <TextView
-        android:id="@+id/text_response"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:textSize="20sp"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_models"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edit_text_street"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:hint="Улица"
+        android:padding="10dp"
+        android:background="@drawable/border_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ListView
+        android:id="@+id/list_streets"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:textSize="20sp"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="gone"
+        />
+
+    <EditText
+        android:id="@+id/edit_text_build"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:hint="Дом"
+        android:padding="10dp"
+        android:background="@drawable/border_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ListView
+        android:id="@+id/list_builds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+
+    <EditText
+        android:id="@+id/edit_text_flat"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:hint="Квартира"
+        android:padding="10dp"
+        android:background="@drawable/border_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/edit_text_index"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:hint="Индекс (определяется автоматически)"
+        android:padding="10dp"
+        android:background="@drawable/border_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

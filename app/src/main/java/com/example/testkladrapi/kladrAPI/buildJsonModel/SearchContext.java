@@ -1,18 +1,20 @@
-package com.example.testkladrapi.kladrAPI;
+package com.example.testkladrapi.kladrAPI.buildJsonModel;
+
+import com.google.gson.annotations.SerializedName;
 
 public class SearchContext{
-	private int withParent;
+
+	@SerializedName("query")
 	private String query;
+
+	@SerializedName("limit")
 	private int limit;
+
+	@SerializedName("contentType")
 	private String contentType;
 
-	public void setWithParent(int withParent){
-		this.withParent = withParent;
-	}
-
-	public int getWithParent(){
-		return withParent;
-	}
+	@SerializedName("streetId")
+	private String streetId;
 
 	public void setQuery(String query){
 		this.query = query;
@@ -36,5 +38,13 @@ public class SearchContext{
 
 	public String getContentType(){
 		return contentType;
+	}
+
+	public void setStreetId(String streetId){
+		this.streetId = streetId;
+	}
+
+	public String getStreetId(){
+		return streetId;
 	}
 }
